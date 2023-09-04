@@ -21,3 +21,6 @@ echo "Disk usage: $disk_usage (MB)" >> "$log_path/$summary_log"
 
 # Rotate and cleanup old summary logs
 find "$log_path" -name "$summary_log*" -mtime +14 -exec rm {} \;
+
+# CRON 
+0 0 * * * /home/prasanthkumar/github/sonix_batch3/linux-proj/project-2/project2
