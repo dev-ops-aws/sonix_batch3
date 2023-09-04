@@ -64,3 +64,5 @@ find "$log_path" -name "$summary_log*" -mtime +14 -exec rm {} ;
 CRON:
 It allows you to automate the execution of tasks or commands at specific times, on specific days, or at regular intervals.
 
+0 0 * * * /home/prasanthkumar/github/sonix_batch3/linux-proj/project-2/project2
+
