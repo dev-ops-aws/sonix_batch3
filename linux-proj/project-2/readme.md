@@ -22,6 +22,7 @@ Cleans up old log files that are more than 2 weeks old.
 Schedules cron to execute this script daily
 
 These lines set up paths for different folders and files.
+
 search_path="/home/prasanthkumar/github/sonix_batch3/linux-proj/project-2/source"
 
 log_path="/home/prasanthkumar/github/sonix_batch3/linux-proj/project-2/logs"
