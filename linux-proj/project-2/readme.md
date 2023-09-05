@@ -10,6 +10,7 @@ Description:
 ----------------------------
 
 This Bash script monitors a specified directory for large files (greater than 2GB), calculates disk usage, and maintains a summary log. It also performs log rotation to clean up old log files. You can schedule this script to run as a cron job.
+
 ----------------------------
 
 
