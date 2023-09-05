@@ -18,6 +18,7 @@ Usage:
 Edit the script to set your desired source path and log path.
 
 Schedule the script to run at regular intervals using cron.
+
 ----------------------------
 
 
@@ -33,6 +34,7 @@ summary_log: The name of the summary log file.
 large_file_count: Variable to store the count of large files.
 
 Make sure to replace the source and log paths with the actual path to your script.
+
 -----------------------------
 
 
