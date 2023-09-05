@@ -6,12 +6,12 @@
 Sendmail is a widely used Mail Transfer Agent (MTA) that allows users to send and receive email on Linux systems. It is a powerful and flexible mail server solution that can be configured to work with various email clients and services.
 
 
-𝟏. Update your system
+  𝟏. Update your system
 
-     $ 𝐬𝐮𝐝𝐨 𝐚𝐩𝐭 𝐮𝐩𝐝𝐚𝐭𝐞 && 𝐬𝐮𝐝𝐨 𝐚𝐩𝐭 𝐮𝐩𝐠𝐫𝐚𝐝𝐞 -𝐲
-
+    $ 𝐬𝐮𝐝𝐨 𝐚𝐩𝐭 𝐮𝐩𝐝𝐚𝐭𝐞 && 𝐬𝐮𝐝𝐨 𝐚𝐩𝐭 𝐮𝐩𝐠𝐫𝐚𝐝𝐞 -𝐲
+     
  
-2. Install Sendmail and related packages
+  2. Install Sendmail and related packages
 
    To install Sendmail along with related packages, such as 𝐦𝐚𝐢𝐥𝐮𝐭𝐢𝐥𝐬 and 𝐬𝐞𝐧𝐝𝐦𝐚𝐢𝐥-𝐜𝐟, run the following command
 
