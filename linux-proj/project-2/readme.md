@@ -2,6 +2,7 @@ Script Title : Efficient Log Management
 ---------------------------
 
 #!/bin/bash : Bash shell script for monitoring large files, calculating disk usage, and maintaining logs. Customize paths and schedule via cron.
+
 ---------------------------
 
 
