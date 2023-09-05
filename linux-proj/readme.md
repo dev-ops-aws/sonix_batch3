@@ -11,14 +11,14 @@ Sendmail is a widely used Mail Transfer Agent (MTA) that allows users to send an
     $ 𝐬𝐮𝐝𝐨 𝐚𝐩𝐭 𝐮𝐩𝐝𝐚𝐭𝐞 && 𝐬𝐮𝐝𝐨 𝐚𝐩𝐭 𝐮𝐩𝐠𝐫𝐚𝐝𝐞 -𝐲
      
  
-  2. Install Sendmail and related packages
+  𝟐. Install Sendmail and related packages
 
    To install Sendmail along with related packages, such as 𝐦𝐚𝐢𝐥𝐮𝐭𝐢𝐥𝐬 and 𝐬𝐞𝐧𝐝𝐦𝐚𝐢𝐥-𝐜𝐟, run the following command
 
     $ 𝐬𝐮𝐝𝐨 𝐚𝐩𝐭 𝐢𝐧𝐬𝐭𝐚𝐥𝐥 -𝐲 𝐬𝐞𝐧𝐝𝐦𝐚𝐢𝐥 𝐬𝐞𝐧𝐝𝐦𝐚𝐢𝐥-𝐜𝐟 𝐦𝐚𝐢𝐥𝐮𝐭𝐢𝐥𝐬
 
 
-  3. Configure Sendmail
+𝟑. Configure Sendmail
 
        The main configuration file for 𝐒𝐞𝐧𝐝𝐦𝐚𝐢𝐥 𝐢𝐬 /𝐞𝐭𝐜/𝐦𝐚𝐢𝐥/𝐬𝐞𝐧𝐝𝐦𝐚𝐢𝐥.𝐜𝐟
 
@@ -35,7 +35,8 @@ Sendmail is a widely used Mail Transfer Agent (MTA) that allows users to send an
 
          Replace 𝐲𝐨𝐮𝐫.𝐬𝐦𝐭𝐩.𝐬𝐞𝐫𝐯𝐞𝐫 with the address of your SMTP relay or smart host
 
-4:  Set up authentication
+
+𝟒.  Set up authentication
 
    create the /𝐞𝐭𝐜/𝐦𝐚𝐢𝐥/𝐚𝐮𝐭𝐡𝐢𝐧𝐟𝐨 file
 
@@ -49,13 +50,14 @@ Sendmail is a widely used Mail Transfer Agent (MTA) that allows users to send an
 
              $ 𝐬𝐮𝐝𝐨 𝐦𝐚𝐤𝐞𝐦𝐚𝐩 𝐡𝐚𝐬𝐡 /𝐞𝐭𝐜/𝐦𝐚𝐢𝐥/𝐚𝐮𝐭𝐡𝐢𝐧𝐟𝐨 < /𝐞𝐭𝐜/𝐦𝐚𝐢𝐥/𝐚𝐮𝐭𝐡𝐢𝐧𝐟𝐨
 
-5:  Generate the Sendmail configuration file
+
+𝟓. Generate the Sendmail configuration file
 
    After making changes to the /𝐞𝐭𝐜/𝐦𝐚𝐢𝐥/𝐬𝐞𝐧𝐝𝐦𝐚𝐢𝐥.𝐦𝐜  file, you need to generate the /𝐞𝐭𝐜/𝐦𝐚𝐢𝐥/𝐬𝐞𝐧𝐝𝐦𝐚𝐢𝐥.𝐜𝐟 file. Run the following command
 
     $ 𝐬𝐮𝐝𝐨 𝐦𝐚𝐤𝐞 -𝐂 /𝐞𝐭𝐜/𝐦𝐚𝐢𝐥
 
-6:  Start and enable the Sendmail service
+𝟔. Start and enable the Sendmail service
 
     $ 𝐬𝐮𝐝𝐨 𝐬𝐲𝐬𝐭𝐞𝐦𝐜𝐭𝐥 𝐞𝐧𝐚𝐛𝐥𝐞 𝐬𝐞𝐧𝐝𝐦𝐚𝐢𝐥.𝐬𝐞𝐫𝐯𝐢𝐜𝐞
 
@@ -64,14 +66,14 @@ To ensure that Sendmail is running without errors, you can check its status
 
       $ 𝐬𝐮𝐝𝐨 𝐬𝐲𝐬𝐭𝐞𝐦𝐜𝐭𝐥 𝐬𝐭𝐚𝐭𝐮𝐬 𝐬𝐞𝐧𝐝𝐦𝐚𝐢𝐥𝐈𝐧𝐛𝐨𝐱
 
-7: Test your Sendmail configuration
+𝟕. Test your Sendmail configuration
 
     $ echo "This is a test email." | mail -s "Test Email" recipient@example.com 
 
     1) create a file named login-monitor.sh in /usr/local/bin and update the script with the below content starting from #!/bin/bash till fi(this is end of script)
 Note: add your mailid, instead of mine
 
-8: create a script to trigger mail when there is incorrect login 
+𝟖. create a script to trigger mail when there is incorrect login 
 
 root@meghana:/usr/local/bin# cat login-monitor.sh
 
@@ -103,7 +105,7 @@ root@meghana:/usr/local/bin# pwd
 
 /usr/local/bin
 
-9: Add this script in to crontab, first use crontab -e and then update the crontab with [*/10 * * * * /usr/local/bin/login-monitor.sh]  in the end. then save and quit.
+𝟗. Add this script in to crontab, first use crontab -e and then update the crontab with [*/10 * * * * /usr/local/bin/login-monitor.sh]  in the end. then save and quit.
 
 root@meghana:/usr/local/bin# crontab -l
 
@@ -113,7 +115,7 @@ root@meghana:/usr/local/bin# crontab -l
 
 You have new mail in /var/mail/root
 
-10: to test, switch to another user and enter the wrong passwd then that should trigger mail.
+𝟏𝟎. To test, switch to another user and enter the wrong passwd then that should trigger mail.
 
 If you see below, i am trying to switch to another user testing1, and entered wrong passwd, then for me it automatically triggered mail
 
@@ -130,7 +132,7 @@ su: Authentication failure
 meghana@meghana:~$ 
 
 
-11: If you don't have any  additional user, create a user like below, instead of testing1 you can give anyname of your choice, and do the test like above.
+𝟏𝟏. If you don't have any  additional user, create a user like below, instead of testing1 you can give anyname of your choice, and do the test like above.
 
 root@meghana:/usr/local/bin# useradd testing1
 
