@@ -1,7 +1,6 @@
 Script Title : Efficient Log Management 
-
-
 ---------------------------
+
 #!/bin/bash : Bash shell script for monitoring large files, calculating disk usage, and maintaining logs. Customize paths and schedule via cron.
 ---------------------------
 
@@ -14,8 +13,8 @@ This Bash script monitors a specified directory for large files (greater than 2G
 
 
 Usage:
-
 ----------------------------
+
 Edit the script to set your desired source path and log path.
 
 Schedule the script to run at regular intervals using cron.
@@ -23,8 +22,8 @@ Schedule the script to run at regular intervals using cron.
 
 
 Script Details:
-
 -----------------------------
+
 source_path: The directory path to monitor for large files.
 
 log_path: The directory where log files will be stored.
@@ -38,8 +37,8 @@ Make sure to replace the source and log paths with the actual path to your scrip
 
 
 The script performs the following tasks:
-
 -----------------------------
+
 1) Initializes large_file_count to 0.
  
 3) Appends a timestamped header to the summary log.
@@ -53,7 +52,7 @@ The script performs the following tasks:
 
 
 Alternative way to delete the logs which are 14 days old ( Through cron )
-
 -----------------------------
+
 0 0 * * * find /path/to/your/repository/logs -type f -name "summary.log*" -mtime +14 -exec rm {} \;
 -----------------------------
