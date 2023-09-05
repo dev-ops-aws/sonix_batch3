@@ -1,68 +1,45 @@
-Automating Housekeeping with Crontab and Linux Utilities
-Script performs the following tasks:
+Script Title : Efficient Log Management 
 
-Sets up paths for directories and log files.
 
-Initializes a counter for large files.
+---------------------------
+#!/bin/bash : Bash shell script for monitoring large files, calculating disk usage, and maintaining logs. Customize paths and schedule via cron.
+---------------------------
 
-Creates a log entry with the current date and time.
 
-Searches for files larger than 2GB in a specified directory.
+Description: 
+----------------------------
+This Bash script monitors a specified directory for large files (greater than 2GB), calculates disk usage, and maintains a summary log. It also performs log rotation to clean up old log files. You can schedule this script to run as a cron job.
+----------------------------
 
-Counts and logs the number of large files found.
 
-Lists the names of large files in the log.
+Usage:
+----------------------------
+Edit the script to set your desired source path and log path.
+Schedule the script to run at regular intervals using cron.
+----------------------------
 
-Calculates the disk usage of the system.
 
-Logs the disk usage information.
+Script Details:
+-----------------------------
+source_path: The directory path to monitor for large files.
+log_path: The directory where log files will be stored.
+summary_log: The name of the summary log file.
+large_file_count: Variable to store the count of large files.
+Make sure to replace the source and log paths with the actual path to your script.
+-----------------------------
 
-Cleans up old log files that are more than 2 weeks old.
 
-Schedules cron to execute this script daily
+The script performs the following tasks:
+-----------------------------
+1) Initializes large_file_count to 0.
+2) Appends a timestamped header to the summary log.
+3) Uses the find command to count and list files larger than 2GB in the specified source directory. The results are added to the summary log.
+4) Calculates the disk usage of the root directory (in megabytes) using df and adds it to the summary log.
+5) Performs log rotation by deleting summary log files older than 14 days in the specified log directory.
+-----------------------------
 
-These lines set up paths for different folders and files.
 
-search_path="/home/prasanthkumar/github/sonix_batch3/linux-proj/project-2/source"
-
-log_path="/home/prasanthkumar/github/sonix_batch3/linux-proj/project-2/logs"
-
-summary_log="team2.log"
-
-This line sets up a counter for large files and initializes it to zero.
-
-large_file_count=0
-
-This line creates a log entry with the current date and time, and it adds it to the summary log file.
-
-echo "$(date): Summary Log" >> "$log_path/$summary_log"
-
-This line searches for files larger than 2GB in the specified search path. It counts how many such files are found and stores the count in the large file count variable.
-
-large_file_count=$(find "$search_path" -type f -size +2G | wc -l)
-
-This line adds a line to the summary log indicating the count of files larger than 2GB.
-
-echo "Number of files larger than 2GB: $large_file_count" >> "$log_path/$summary_log"
-
-This line lists the names of files larger than 2GB and adds them to the summary log.
-
-find "$search_path" -type f -size +2G >> "$log_path/$summary_log"
-
-This line checks how much disk space is used on the system. It extracts the disk usage value and stores it in the disk usage variable.
-
-disk_usage=$(df -BM / | awk 'NR==2 {print $3}')
-
-This line adds the disk usage information to the summary log.
-
-echo "Disk usage: $disk_usage MB" >> "$log_path/$summary_log"
-
-This line finds log files older than 14 days in the specified log path. It deletes those old log files to keep the folder clean.
-
-find "$log_path" -name "$summary_log*" -mtime +14 -exec rm {} ;
-
-CRON:
-It allows you to automate the execution of tasks or commands at specific times, on specific days, or at regular intervals.
-
-0 0 * * * /home/prasanthkumar/github/sonix_batch3/linux-proj/project-2/project2 
-
+Alternative way to delete the logs which are 14 days old ( Through cron )
+-----------------------------
+0 0 * * * find /path/to/your/repository/logs -type f -name "summary.log*" -mtime +14 -exec rm {} \;
+-----------------------------
