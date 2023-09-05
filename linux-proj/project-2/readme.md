@@ -59,4 +59,5 @@ Alternative way to delete the logs which are 14 days old ( Through cron )
 -----------------------------
 
 0 0 * * * find /path/to/your/repository/logs -type f -name "summary.log*" -mtime +14 -exec rm {} \;
+
 -----------------------------
