@@ -81,7 +81,7 @@ LOG_FILE="/var/log/auth.log"
 
 # Define the email recipient
 
-EMAIL_RECIPIENT="meghanakusuma@sonixhub.com"
+EMAIL_RECIPIENT="abc@gmail.com"
 
 # Define the email subject
 
