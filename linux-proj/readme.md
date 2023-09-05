@@ -66,6 +66,85 @@ To ensure that Sendmail is running without errors, you can check its status
 
     $ echo "This is a test email." | mail -s "Test Email" recipient@example.com 
 
+    1) create a file named login-monitor.sh in /usr/local/bin and update the script with the below content starting from #!/bin/bash till fi(this is end of script)
+Note: add your mailid, instead of mine
+
+8: create a script to trigger mail when there is incorrect login 
+
+root@meghana:/usr/local/bin# cat login-monitor.sh
+
+#!/bin/bash
+
+# Define the log file to monitor
+
+LOG_FILE="/var/log/auth.log"
+
+# Define the email recipient
+
+EMAIL_RECIPIENT="meghanakusuma@sonixhub.com"
+
+# Define the email subject
+
+EMAIL_SUBJECT="Unauthorized Login Attempt Detected on Your Server"
+
+# Check the log file for failed login attempts
+
+if grep -q "Failed password" "$LOG_FILE"; then
+
+  MESSAGE="Unauthorized login attempt detected on your server. Please review the system logs for more details."
+  
+  echo "$MESSAGE" | mail -s "$EMAIL_SUBJECT" $EMAIL_RECIPIENT
+  
+fi
+
+root@meghana:/usr/local/bin# pwd
+
+/usr/local/bin
+
+9: Add this script in to crontab, first use crontab -e and then update the crontab with [*/10 * * * * /usr/local/bin/login-monitor.sh]  in the end. then save and quit.
+
+root@meghana:/usr/local/bin# crontab -l
+
+# m h  dom mon dow   command
+
+*/10 * * * * /usr/local/bin/login-monitor.sh
+
+You have new mail in /var/mail/root
+
+10: to test, switch to another user and enter the wrong passwd then that should trigger mail.
+
+If you see below, i am trying to switch to another user testing1, and entered wrong passwd, then for me it automatically triggered mail
+
+meghana@meghana:~$ id
+
+uid=1000(meghana) gid=1000(meghana) groups=1000(meghana),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),122(lpadmin),135(lxd),136(sambashare)
+
+meghana@meghana:~$ su - testing1
+
+Password:
+
+su: Authentication failure
+
+meghana@meghana:~$ 
+
+
+11: If you don't have any  additional user, create a user like below, instead of testing1 you can give anyname of your choice, and do the test like above.
+
+root@meghana:/usr/local/bin# useradd testing1
+
+root@meghana:/usr/local/bin# passwd testing1
+
+New password:
+
+BAD PASSWORD: The password is shorter than 8 characters
+
+Retype new password:
+
+passwd: password updated successfully
+
+root@meghana:/usr/local/bin#
+
+
     
 
     
