@@ -14,28 +14,41 @@ This Bash script monitors a specified directory for large files (greater than 2G
 
 Usage:
 ----------------------------
+
 Edit the script to set your desired source path and log path.
+
 Schedule the script to run at regular intervals using cron.
+
 ----------------------------
 
 
 Script Details:
 -----------------------------
 source_path: The directory path to monitor for large files.
+
 log_path: The directory where log files will be stored.
+
 summary_log: The name of the summary log file.
+
 large_file_count: Variable to store the count of large files.
+
 Make sure to replace the source and log paths with the actual path to your script.
+
 -----------------------------
 
 
 The script performs the following tasks:
 -----------------------------
 1) Initializes large_file_count to 0.
-2) Appends a timestamped header to the summary log.
-3) Uses the find command to count and list files larger than 2GB in the specified source directory. The results are added to the summary log.
-4) Calculates the disk usage of the root directory (in megabytes) using df and adds it to the summary log.
-5) Performs log rotation by deleting summary log files older than 14 days in the specified log directory.
+ 
+3) Appends a timestamped header to the summary log.
+
+5) Uses the find command to count and list files larger than 2GB in the specified source directory. The results are added to the summary log.
+ 
+7) Calculates the disk usage of the root directory (in megabytes) using df and adds it to the summary log.
+ 
+9) Performs log rotation by deleting summary log files older than 14 days in the specified log directory.
+ 
 -----------------------------
 
 
