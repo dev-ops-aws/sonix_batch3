@@ -61,6 +61,8 @@ Sendmail is a widely used Mail Transfer Agent (MTA) that allows users to send an
 
     $ 𝐬𝐮𝐝𝐨 𝐬𝐲𝐬𝐭𝐞𝐦𝐜𝐭𝐥 𝐞𝐧𝐚𝐛𝐥𝐞 𝐬𝐞𝐧𝐝𝐦𝐚𝐢𝐥.𝐬𝐞𝐫𝐯𝐢𝐜𝐞
 
+    sudo systemctl start sendmail.service
+
 
 To ensure that Sendmail is running without errors, you can check its status
 
