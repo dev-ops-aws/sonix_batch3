@@ -38,7 +38,7 @@ Sendmail is a widely used Mail Transfer Agent (MTA) that allows users to send an
 
 𝟒.  Set up authentication
 
-   create the /𝐞𝐭𝐜/𝐦𝐚𝐢𝐥/𝐚𝐮𝐭𝐡𝐢𝐧𝐟𝐨 file
+   create the /𝐞𝐭𝐜/𝐦𝐚𝐢𝐥/𝐚𝐮𝐭𝐡𝐢𝐧𝐟𝐨 file by creating touch command
 
        $  𝐬𝐮𝐝𝐨  𝐧𝐚𝐧𝐨 /𝐞𝐭𝐜/𝐦𝐚𝐢𝐥/𝐚𝐮𝐭𝐡𝐢𝐧𝐟𝐨
 
