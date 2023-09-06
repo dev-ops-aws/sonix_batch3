@@ -1,101 +1,66 @@
-How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu 22.04
+Script Title : How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu 22.04 
+---------------------------
 
-Deliver high-performance web apps and websites with the LAMP stack. LAMP is a bundle of open source software that you can use to create a solid and reliable foundation for your web app development. The following components are included in the LAMP stack:
+#!/bin/bash : Bash shell script for Installation of LAMP stacks which is used to create, host, and maintain web content. It is a popular solution that powers many of the websites you commonly use today.
 
-Linux as the operating system
-Apache HTTP Server as the webserver
-MySQL as the database
-PHP as the programming language
+---------------------------
 
 
-SECURITY FIRST: 
-Log into the remote machine as root: $sudo su -
+Description: 
+----------------------------
 
-SECURITY SECOND: Add a firewall.
-To list all currently available UFW application profiles, you can run:
-#sudo ufw app list
+This Bash script installs the Lamp stack which is a combination of operating system and open-source software stack. This LAMP setup includes the installation of Apache HTTP Server, MySQL and PHP on the top of Ubuntu.
 
-To only allow traffic on port 80, use the Apache profile:
-# sudo ufw allow in "Apache"
-
-You can verify the change with:
-# sudo ufw status
-
-LAMP installation and setup
-
-Install Apache
-# su sudo apt update
-# su apt install apache2 -y
-
-Install MySQL
-# sudo apt install mysql-server mysql-client -y
-
-Run the MySQL secure installation
-# sudo mysql_secure_installation
-
-This will ask if you want to configure the VALIDATE PASSWORD PLUGIN.
-Answer Y for yes, or anything else to continue without enabling.
+----------------------------
 
 
-1. Database creation
-Log into MySQL
- # sudo mysql 
+Prerequisites
+----------------------------
 
-Create a new database
- # CREATE DATABASE mydb;
+Operating System : Ubuntu 22.04
 
-2. User creation
-      Add your user to MySQL
+SECURITY FIRST: Log into the remote machine as root: $sudo su -
 
-# CREATE USER username@localhost IDENTIFIED VIA mysql_native_password BY ‘password’;
+SECURITY SECOND: Add a firewall. To list all currently available UFW application profiles, you can run: #sudo ufw app list
 
-# UPDATE user SET password=PASSWORD('password') WHERE User='username' AND Host = 'localhost';
+To only allow traffic on port 80, use the Apache profile: sudo ufw allow in "Apache"
 
-3. Grant all privileges to the user on a specific database. Only allow access from localhost (this is the most secure and common configuration you will use for a web application). This will probably be the new sudo user you have set up previously.
- # GRANT ALL ON mydb.* TO 'username'@'laocalhost';
+You can verify the change with: sudo ufw status
 
-4. Now exit the MySQL shell with:
-# exit
-
-Install PHP
-# apt-get install php libapache2-mod-php php-mysql -y
-
-Enabling Modules
-# sudo a2enmod rewrite
-# sudo phpenmod mcrypt
-
-Additionally you will need
-# sudo chown -R www-data:www-data /var/www
-
-Configure PhpMyAdmin
-# echo 'Include /etc/phpmyadmin/apache.conf' >> /e>
-
-Restarting Apache
-# sudo service apache2 restart
-
-# echo -e "\n\nLAMP Installation Completed"
-exit 0
+----------------------------
 
 
+Script Details:
+-----------------------------
+
+update and upgrade the apt-get packages to their current versions in your system.
+
+Install the Apache web server on the linux which is acting as the base layer in the LAMP stack.
+
+Install MySQL. It is used for collecting and storing the data as RDBMS.
+
+Install PHP and requirements. PHP an object oriented scripting language is used to display the data in MySQL.
+
+Install PhpMyAdmin. It is a free and open source administration tool for MySQL and MariaDB. As a portable web application written primarily in PHP, it has become one of the most popular MySQL administration tools, especially for web hosting services.
+
+chown command changes the ownership to user:group i.e. www-data:www-data in our case.
+
+command a2enmod enables apache2 module and phpenmod enables php module.
+
+restart the apache2 web service.
 
 
+-----------------------------
 
 
+After successfully executing the script
+-----------------------------
 
+Go to a browser and hit the following
 
+1) http://your_server_ip - You’ll see the default Ubuntu 20.04 Apache web page, which is there for informational and testing purposes.
+ 
+2) http://your_server_ip/phpmyadmin - For accessing phpmyadmin page.
+ 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ -----------------------------
