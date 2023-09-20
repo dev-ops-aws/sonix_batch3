@@ -1,0 +1,9 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: A sample template
+Resources:
+  MyEC2Instance: #An inline comment
+    Type: "AWS::EC2::Instance"
+    Properties: 
+      ImageId: "ami-0f5ee92e2d63afc18" #Another comment -- This is a Linux AMI
+      InstanceType: t2.micro
+      KeyName: keypair-b2
