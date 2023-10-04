@@ -1,3 +1,4 @@
+## Title - Three-tier web application with Squid Whitelisting
 ## Services used - EC2, RDS, Load balancer, Route53, Route tables.
 
 ### Phase-1: Three Tier Website using EC2, RDS and Load Balancer.
