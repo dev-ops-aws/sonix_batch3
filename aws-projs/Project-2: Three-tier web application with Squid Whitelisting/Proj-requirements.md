@@ -11,3 +11,5 @@ Docker.com is whitelisted
 
 All other traffic is denied (youtube.com, facebook.com)
 
+## References:
+[AWS Blog for Squid Setup](https://aws.amazon.com/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/)
