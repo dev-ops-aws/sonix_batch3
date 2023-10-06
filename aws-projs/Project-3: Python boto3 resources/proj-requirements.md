@@ -1,5 +1,6 @@
 ## Title - Summary and Scheduling of AWS Resources (EC2, RDS)
-### Services used - EC2, Boto3, RDS, SNS notifications, Gmail integration, Event bridge
+
+Services used - EC2, Boto3, RDS, SNS notifications, Gmail integration, Event bridge, SES
 
 ### Phase-1: 
 
