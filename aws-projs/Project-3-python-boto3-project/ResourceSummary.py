@@ -2,9 +2,10 @@ import boto3
 import datetime
 
 # AWS Resource Clients
-ec2_client = boto3.client('ec2')
-rds_client = boto3.client('rds')
-sns_client = boto3.client('sns')
+def lambda_handler(event, context):
+    ec2_client = boto3.client('ec2')
+    rds_client = boto3.client('rds')
+    sns_client = boto3.client('sns')
 
 # AWS Account ID and Gmail address
 aws_account_id = '264638186531'
