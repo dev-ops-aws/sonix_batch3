@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: CloudFormation template to create EC2 and RDS instances
+Description: CloudFormation template to create EC2 and RDS instances with tags
 
 Parameters:
   EC2InstanceType:
@@ -12,15 +12,13 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: !Ref EC2InstanceType
-      KeyName: demo-key
+      KeyName: demo-key  # Replace with your Keypair
       ImageId: ami-0c42696027a8ede58  # Replace with your desired AMI ID
       SecurityGroups:
         - !Ref EC2SecurityGroup
-      UserData:
-        Fn::Base64:
-          !Sub |
-            #!/bin/bash
-            # Add your user data script here
+      Tags:
+        - Key: auto-stop
+          Value: true
 
   EC2SecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -42,6 +40,9 @@ Resources:
       MasterUserPassword: adminpassword
       DBName: mydatabase
       MultiAZ: false
+      Tags:
+        - Key: auto-stop
+          Value: true
 
 Outputs:
   EC2InstancePublicDNS:

@@ -1,30 +1,45 @@
 import boto3
+import datetime
 
 def lambda_handler(event, context):
-    rds_client = boto3.client('rds')
+    # AWS clients
+    rds_client = boto3.client('rds', region_name='ap-south-1')  # Replace 'your-rds-region' with your region.
+    sns_client = boto3.client('sns')
 
-    # Describe all RDS instances
-    all_instances = rds_client.describe_db_instances()
+    # Check if the current hour is 20 (8 PM in 24-hour format)
+    current_hour = datetime.datetime.utcnow().hour
 
-    # Filter RDS instances with the 'auto-stop' tag set to 'true'
-    instances_to_stop = []
+    if current_hour == 20:
+        # Describe RDS instances with the 'auto-stop' tag set to 'true' and 'available' state
+        response = rds_client.describe_db_instances()
 
-    for instance in all_instances['DBInstances']:
-        # Get the list of tags for the RDS instance
-        tags = instance.get('TagList', [])
+        # Initialize a list to store DB instance identifiers
+        instance_ids = []
 
-        # Check if the 'auto-stop' tag is present and set to 'true'
-        for tag in tags:
-            if tag['Key'] == 'auto-stop' and tag['Value'] == 'true':
-                # Add the instance to the list of instances to stop
-                instances_to_stop.append(instance['DBInstanceIdentifier'])
-                break  # Break the inner loop if the tag is found
+        # Extract DB instance identifiers with the 'auto-stop' tag
+        for instance in response['DBInstances']:
+            for tag in instance.get('TagList', []):
+                if tag['Key'] == 'auto-stop' and tag['Value'] == 'true':
+                    instance_ids.append(instance['DBInstanceIdentifier'])
 
-    # Stop the RDS instances in the 'instances_to_stop' list
-    for instance_id in instances_to_stop:
-        rds_client.stop_db_instance(DBInstanceIdentifier=instance_id)
+        if instance_ids:
+            # Stop the RDS instances
+            for instance_id in instance_ids:
+                rds_client.stop_db_instance(DBInstanceIdentifier=instance_id)
 
-    return {
-        'statusCode': 200,
-        'body': 'RDS instances auto-stopped successfully!'
-    }
+            # Send a notification
+            sns_client.publish(
+                TopicArn='arn:aws:sns:ap-south-1:264638186531:ResourceSummaryTopic',  # Replace with your SNS topic ARN.
+                Message='RDS instances auto-stopped successfully!',
+                Subject='AWS Resource Auto-Stop'
+            )
+
+            return {
+                'statusCode': 200,
+                'body': 'RDS instances auto-stopped successfully!'
+            }
+    else:
+        return {
+            'statusCode': 200,
+            'body': 'Not the scheduled time for stopping instances.'
+        }
