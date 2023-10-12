@@ -3,17 +3,24 @@ Project-1: S3 Website Hosting of Project Profile
 
 Services Used
 
+
 Amazon S3: For storing and hosting the static website files.
+
 
 Amazon CloudFront: Content Delivery Network (CDN) for fast content delivery.
 
+
 Amazon Certificate Manager (ACM): To obtain and manage SSL/TLS certificates for secure website access.
+
 
 Amazon CloudWatch: Monitoring and logging service for tracking website performance.
 
+
 AWS Developer Tools - GitHub: For version control and collaboration.
 
+
 AWS CloudFormation: For infrastructure as code to automate resource provisioning.
+
 
 Domain Mapping: Custom domain mapping (e.g., www.yourdomain.com).
 
