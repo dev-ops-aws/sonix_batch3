@@ -3,7 +3,7 @@ Resources:
   S3BucketPolicy:
     Type: 'AWS::S3::BucketPolicy'
     Properties:
-      Bucket: mohan-sai-s3-project-1
+      Bucket: prasanthkumar.000
       PolicyDocument:
         Statement:
           - Sid: PublicReadGetObject
@@ -12,5 +12,5 @@ Resources:
             Action: 's3:GetObject'
             Resource: 
               Fn::Sub:
-                - arn:aws:s3:::mohan-sai-s3-project-1/*
+                - arn:aws:s3:::prasanthkumar.000/*
                 - {}

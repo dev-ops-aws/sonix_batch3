@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  CloudWatchAlarm:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      AlarmName: CloudFront4xxErrorRateAlarm
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      EvaluationPeriods: 1
+      Threshold: 1.0
+      AlarmDescription: Alarm for CloudFront 4xx Error Rate
+      Namespace: AWS/CloudFront
+      MetricName: 4xxErrorRate
+      Dimensions:
+        - Name: DistributionId
+          Value: E3HX3FBJ3MX8OR
+      Statistic: Average
+      Period: 86040
+      AlarmActions:
+        - arn:aws:sns:ap-south-1:209714806853:Default_CloudWatch_Alarms_Topic
+      OKActions:
+        - arn:aws:sns:ap-south-1:209714806853:Default_CloudWatch_Alarms_Topic

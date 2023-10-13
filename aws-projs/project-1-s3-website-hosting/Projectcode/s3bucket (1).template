@@ -3,7 +3,7 @@ Resources:
   WebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: mohan-sai-s3-project-1
+      BucketName: prasanthkumar.000
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
