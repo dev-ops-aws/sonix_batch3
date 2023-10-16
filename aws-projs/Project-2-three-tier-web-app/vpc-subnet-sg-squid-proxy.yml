@@ -1,0 +1,47 @@
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.0.0/24
+
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for Squid Proxy
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3128
+          ToPort: 3128
+          CidrIp: 0.0.0.0/0
+
+  ProxyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0a5ac53f63249fba0
+      InstanceType: t2.micro
+      KeyName: keypair1
+      NetworkInterfaces:
+        - GroupSet:
+            - !Ref SecurityGroup
+          AssociatePublicIpAddress: true
+          DeviceIndex: 0
+        SubnetId: !Ref Subnet-036c14ad81796f329
+      UserData:
+        Fn::Base64:
+          Fn::Sub: |
+            #!/bin/bash
+            yum update -y
+            yum install -y squid
+            echo "http_access allow whitelist" >> /etc/squid/squid.conf
+            echo "acl whitelist dstdomain .docker.com" >> /etc/squid/squid.conf
+            systemctl enable squid
+            systemctl start squid
