@@ -1,0 +1,12 @@
+Resources:
+  MyDBSubnetGroup:
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties:
+      DBSubnetGroupDescription: "Subnet group for RDS in two Availability Zones"
+      SubnetIds:
+        - subnet-0f85e079a2cfc1285 
+        - subnet-0b51cd5d83d770b41
+Outputs:
+  DBSubnetGroupName:
+    Description: "Name of the RDS DB Subnet Group"
+    Value: !Ref MyDBSubnetGroup

@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: EC2 Instances in Two Availability Zones
+
+Resources:
+  MySecurityGroup1:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for EC2 in Zone A
+      VpcId: vpc-0829baa6a49579fa5
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0  
+
+  MySecurityGroup2:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for EC2 in Zone B
+      VpcId: vpc-0829baa6a49579fa5
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0  
+
+  MyInstance1:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: ap-south-1a  
+      InstanceType: t2.micro  
+      SecurityGroupIds:
+        - Ref: MySecurityGroup1
+      SubnetId: subnet-0f85e079a2cfc1285 
+      ImageId: ami-0fb974a4772b174a5
+      KeyName: Sai pravali
+
+  MyInstance2:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: ap-south-1b 
+      InstanceType: t2.micro 
+      SecurityGroupIds:
+        - Ref: MySecurityGroup2
+      SubnetId: subnet-0b51cd5d83d770b41 
+      ImageId: ami-0fb974a4772b174a5  
+      KeyName: Sai pravali

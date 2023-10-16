@@ -1,0 +1,25 @@
+Resources:
+ ProxyInstance1:
+   Type: AWS::EC2::Instance
+   Properties:
+    AvailabilityZone: ap-south-1a 
+    InstanceType: t2.micro 
+    SecurityGroupIds:
+     - sg-0037cfa3037d9ea2c
+    SubnetId: subnet-0e11e66e425215fb4 
+    ImageId: ami-0a5ac53f63249fba0
+    UserData:
+     Fn::Base64: !Sub |
+      #!/bin/bash
+      yum update -y
+      yum install -y squid
+      chkconfig squid on
+      service squid start
+      echo 'acl allow_websites dstdomain .docker.com' >> /etc/squid/squid.conf
+      echo 'acl block_websites dstdomain .facebook.com .youtube.com' >> /etc/squid/squid.conf
+      'http_access deny block_websites' >> /etc/squid/squid.conf
+      service squid restart
+Outputs:
+ ProxyInstance1PublicIP:
+   Description: "Public IP address of ProxyInstance1"
+   Value: !GetAtt ProxyInstance1.PublicIp
