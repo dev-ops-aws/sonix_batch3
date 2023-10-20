@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CodePipeline for GitHub to S3 Deployment
+
+Resources:
+  CodePipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      Name: MyCodePipeline
+      RoleArn: arn:aws:iam::133046418407:role/AWSCodePipeline_FullAccess
+      ArtifactStore:
+        Type: S3
+        Location: cloudformation-cicd-s3
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: SourceAction
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Version: 2
+                Provider: GitHub
+              OutputArtifacts:
+                - Name: MyAppOutput
+              Configuration:
+                Owner: mohansai123
+                Repo: https://github.com/mohansai123/PRSV.git
+                Branch: main  # Specify your desired branch
+                OAuthToken: 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
+        - Name: Deploy
+          Actions:
+            - Name: DeployToS3
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Version: 1
+                Provider: S3
+              InputArtifacts:
+                - Name: MyAppOutput
+              Configuration:
+                BucketName: cloudformation-cicd-s3
+                Extract: 'true'
+                ObjectKey: app/
+
+Outputs:
+  PipelineName:
+    Description: "CodePipeline Name"
+    Value: !Ref CodePipeline
