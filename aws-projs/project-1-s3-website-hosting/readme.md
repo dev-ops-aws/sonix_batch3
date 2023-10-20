@@ -57,25 +57,25 @@ cloudwatch.yml
 ---------------------------------------------------
 Replace the following values with your specific information:
 
-Alarm Name: Modify the `AlarmName` property to specify a unique name for your CloudWatch Alarm.
+Alarm Name: Modify the AlarmName property to specify a unique name for your CloudWatch Alarm.
      
-Threshold: Adjust the `Threshold` property to set the error rate threshold at which the alarm should trigger.
+Threshold: Adjust the Threshold property to set the error rate threshold at which the alarm should trigger.
      
-Distribution ID: Change the `Value` under the `Dimensions` section to the CloudFront distribution you want to monitor.
+Distribution ID: Change the Value under the Dimensions section to the CloudFront distribution you want to monitor.
      
-SNS Topic ARN: Update the `AlarmActions` and `OKActions` with the ARN of your SNS topic for notifications.
+SNS Topic ARN: Update the AlarmActions and OKActions with the ARN of your SNS topic for notifications.
 
 cloudfront (3).template
 ---------------------------------------------------
  Replace the following values with your specific information:
  
-S3 Bucket Domain Name: Modify the `DomainName` property under `Origins` to specify the domain name of your S3 bucket. 
+S3 Bucket Domain Name: Modify the DomainName property under Origins to specify the domain name of your S3 bucket. 
 
-S3 Origin ID: You can change the `Id` under `Origins` to give your S3 origin a unique identifier.
+S3 Origin ID: You can change the Id under Origins to give your S3 origin a unique identifier.
 
-Viewer Protocol Policy: If you want to change the viewer protocol policy, modify the `ViewerProtocolPolicy` property under `DefaultCacheBehavior`.
+Viewer Protocol Policy: If you want to change the viewer protocol policy, modify the ViewerProtocolPolicy property under DefaultCacheBehavior.
 
-Enabled: Set the `Enabled` property to `true` to enable the CloudFront distribution.
+Enabled: Set the Enabled property to true to enable the CloudFront distribution.
 
 ---------------------------------------------------
 
