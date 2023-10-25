@@ -1,0 +1,159 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: One-Tier Web Application with Squid Proxy
+
+Parameters:
+  InstanceType:
+    Type: String
+    Default: t2.micro
+    Description: EC2 instance type for web servers
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Name of an existing EC2 KeyPair for SSH access
+    Default: project2  # Replace with your actual key pair name
+
+  AMIId:
+    Type: AWS::EC2::Image::Id
+    Description: ID of the Amazon Machine Image (AMI) for EC2 instances
+    Default: ami-099b3d23e336c2e83  # Replace with your actual AMI ID
+
+Resources:
+  MyVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      AvailabilityZone: ap-south-1a
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  GatewayToInternet:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref MyVPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref MyVPC
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: GatewayToInternet
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+
+  WebServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for Web Server
+      VpcId: !Ref MyVPC
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 80
+          ToPort: 80
+          IpProtocol: tcp
+        - CidrIp: 0.0.0.0/0
+          FromPort: 22
+          ToPort: 22
+          IpProtocol: tcp
+
+  WebInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref AMIId
+      InstanceType: !Ref InstanceType
+      SubnetId: !Ref PublicSubnet
+      SecurityGroupIds:
+        - !GetAtt WebServerSecurityGroup.GroupId
+      KeyName: !Ref KeyName
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+
+          # Update the package manager and install necessary software
+          sudo yum update -y
+          sudo yum install -y httpd
+          sudo systemctl status httpd
+          mkdir aws_project2
+          cd aws_project2
+          wget https://github.com/hams77/myportfolio.git
+          wget https://github.com/hams77/myportfolio/archive/refs/heads/main.zip
+          unzip main.zip
+          cd Sample-Portfolio-Website-main
+          mv * /var/www/html/
+          cd /var/www/html
+          sudo systemctl status httpd
+          sudo systemctl enable httpd
+          sudo systemctl start httpd
+
+  SquidProxySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for Squid Proxy
+      VpcId: !Ref MyVPC
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 22
+          ToPort: 22
+          IpProtocol: tcp
+        - CidrIp: 0.0.0.0/0
+          FromPort: 3128
+          ToPort: 3128
+          IpProtocol: tcp
+
+  SquidProxyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref AMIId
+      InstanceType: !Ref InstanceType
+      SubnetId: !Ref PublicSubnet
+      SecurityGroupIds:
+        - !GetAtt SquidProxySecurityGroup.GroupId
+      KeyName: !Ref KeyName
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+
+          sudo yum update -y
+          sudo yum install -y squid
+          sudo systemctl start squid
+          sudo systemctl enable squid
+
+          # Create the whitelist.txt file and add docker.com to it
+          echo '.docker.com' | sudo tee /etc/squid/whitelist.txt
+
+          # Use sudo to edit the Squid configuration file
+          # Add two lines after line 62 in squid.conf
+          sed -i '62 a acl whitelist dstdomain "/etc/squid/whitelist.txt"\nhttp_access allow whitelist' /etc/squid/squid.conf
+
+          # Open port 3128 in the firewall
+          firewall-cmd --zone=public --add-port=3128/tcp --permanent
+          firewall-cmd --reload
+
+          sudo systemctl restart squid
+
+Outputs:
+  WebAppInstanceIP:
+    Description: Public IP address of the web application instance
+    Value: !GetAtt WebInstance.PublicIp
+
+  ProxyInstanceIP:
+    Description: Public IP address of the Squid proxy instance
+    Value: !GetAtt SquidProxyInstance.PublicIp
