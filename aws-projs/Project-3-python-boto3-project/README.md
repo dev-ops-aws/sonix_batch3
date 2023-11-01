@@ -42,7 +42,7 @@ To set up and run this script, follow these steps:
 1. Clone this repository to your local machine:
 
 
-git clone <repository-url>
+git clone https://github.com/pavankumarindian/Python_Boto3_Project.git
 cd aws-resource-management
 
 

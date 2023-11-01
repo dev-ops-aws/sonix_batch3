@@ -15,3 +15,15 @@ Create a Cloudformation script for creating sample EC2 and RDS instances. Update
 Stop EC2 instances at 8PM everyday (if they are running) for all resources that have tag updated as auto-stop = true
 
 Stop RDS instances at 8PM everyday (if they are running) for all resources that have tag updated as auto-stop = true
+
+Create a CFT-1 script with following -
+  EC2
+  RDS
+
+Create a CFT to create the following-
+  Eventbridge Rule
+  Step Functions
+  Lmabda Functions
+  IAM Role
+  SNS
+
