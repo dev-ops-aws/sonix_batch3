@@ -1,3 +1,3 @@
-# sonix_batch-3
-Repo for Sonix Batch-3
-Date: 25/10
+# Hi, I'm Venkata Ramana
+## Venkara Ramana is a passionate DevOps Engineer from India, working on Cloud and DevOps for 1+ years now.
+
