@@ -18,8 +18,8 @@ Refer Graddle intergration with Jenkins
 Refer Python intergration with Jenkins
 Refer MSBuild integration with jenkins
 
-[Gradle Build Example] (https://turkogluc.com/build-and-deploy-gradle-projects-with-jenkins/)
+[Gradle Build Example](https://turkogluc.com/build-and-deploy-gradle-projects-with-jenkins/)
 
-[Python Flask Build] (https://www.freecodecamp.org/news/how-to-build-a-web-application-using-flask-and-deploy-it-to-the-cloud-3551c985e492/)
+[Python Flask Build](https://www.freecodecamp.org/news/how-to-build-a-web-application-using-flask-and-deploy-it-to-the-cloud-3551c985e492/)
 
-[Msbuild example] (https://www.c-sharpcorner.com/article/integrate-jenkins-with-msbuild/)
+[Msbuild example](https://www.c-sharpcorner.com/article/integrate-jenkins-with-msbuild/)
